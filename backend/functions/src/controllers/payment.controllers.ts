@@ -12,7 +12,7 @@ const stripe = new Stripe(secret_stripeKey, {
 
 export const createPayment = async (req: Request, res: Response) => {
 
- const {userId, orderId, amount} = req.body;
+ const {userId, orderId, amount,} = req.body;
 
     try {
     //Create a payment intent with Stripe
@@ -24,13 +24,16 @@ export const createPayment = async (req: Request, res: Response) => {
         
        }, 
     });
-    res.send({ clientSecret: paymentIntent.client_secret });
 
-        return res.status(200).json({
-            message: "Payment done successfully"
-        })
+    
+    //Return the client secret for frontend
+    const paymentIntentResponse = paymentIntent.client_secret;
+    res.status(200).send({ 
+      clientSecret: paymentIntentResponse 
+    });
+     return
 
-    } catch (error) {
+    } catch (error: any) {
       return res.status(500).json({
       message: "Server error"
       });  
