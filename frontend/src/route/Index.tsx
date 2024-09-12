@@ -14,6 +14,7 @@ import Products from "../pages/products/Products";
 import CreateProduct from "../pages/products/CreateProduct";
 import PaymentDone from "../pages/payment/PaymentDone";
 import PaymentForm from "../pages/payment/PaymentForm";
+import RestaurantMenu from "../pages/restaurant/RestaurantMenu";
 
 
 const Index = () => {
@@ -42,6 +43,7 @@ const Index = () => {
         ) : (
           <Route path="/create-restaurant" element={<CreateRestaurant />} />
         )}
+        <Route path="/restaurant/:restaurantId" element={<RestaurantMenu/>} />
 
 
 
