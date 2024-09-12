@@ -1,6 +1,9 @@
 import React from "react";
-import CheckoutForm from "./CheckoutForm";
 import "./PaymentStyles.scss";
+import PaymentForm from "./PaymentForm";
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "../../config/stripeConfig";
+
 
 
 const Payment = () => {
@@ -8,7 +11,9 @@ const Payment = () => {
       <div className="payment-container">
         <h6>Pay Here
         </h6>
-        <CheckoutForm />
+        <Elements stripe = {stripePromise} >
+          <PaymentForm/>
+        </Elements>
       </div>
   )
 }

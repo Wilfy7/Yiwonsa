@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import "./RestaurantStyles.scss";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 interface Restaurant {
     _id: string;
@@ -18,12 +18,15 @@ interface Restaurant {
     const [restaurants, setRestaurants] = useState <Restaurant[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+
+    const navigate = useNavigate();
   
     useEffect(() => {
       axios.get(`${baseUrl}/restaurants`) // Update the URL as per your backend route
         .then(response => {
           setRestaurants(response.data.data);
           setLoading(false);
+          
         })
         .catch(error => {
           setError(error.message);
@@ -38,6 +41,10 @@ interface Restaurant {
     if (error) {
       return <div>Error: {error}</div>;
     }
+
+    const handleRestaurantClick = (restaurantId: any) => {
+      navigate(`/restaurant/${restaurantId}`)
+    }
   
     return (
         <div className=" restaurant-list">
@@ -45,11 +52,16 @@ interface Restaurant {
         <h3 className="mb-4">All  Restaurants</h3>
         <ul className="restaurant-grid">
           {restaurants.map((restaurant) => (
-            <li key={restaurant._id} className="restaurant-card">
+            <li key={restaurant._id} 
+                className="restaurant-card"
+                onClick = {() => handleRestaurantClick(restaurant._id)}
+                >
               <div className="">
                <div className="restaurant-details">
                <img src={restaurant.image} className="card-img-top card__img" alt={restaurant.name} />
-                <h2 className="card-title text-primary">{restaurant.name}</h2>
+                <h2 className="card-title text-primary">
+                  {restaurant.name}
+                  </h2>
                </div>
               </div>
             </li>

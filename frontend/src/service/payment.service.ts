@@ -2,7 +2,7 @@ import axios from "axios";
 import { token } from "./user.service";
 
 
-const baseUrl = process.env.REACT_APP_API;
+export const baseUrl = process.env.REACT_APP_API;
 
 
 

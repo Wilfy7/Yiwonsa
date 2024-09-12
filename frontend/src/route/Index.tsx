@@ -12,8 +12,8 @@ import Home from "../pages/home/Home";
 import Updateprofile from "../pages/profile/Updateprofile";
 import Products from "../pages/products/Products";
 import CreateProduct from "../pages/products/CreateProduct";
-import CheckoutForm from "../pages/payment/CheckoutForm";
 import PaymentDone from "../pages/payment/PaymentDone";
+import PaymentForm from "../pages/payment/PaymentForm";
 
 
 const Index = () => {
@@ -85,7 +85,7 @@ const Index = () => {
 
 
       {user ? (
-          <Route path="/checkform" Component={CheckoutForm} />
+          <Route path="/checkform" Component={PaymentForm} />
         ):(
           <Route path="checkform" element={<Navigate to="/" />} />
         )}
