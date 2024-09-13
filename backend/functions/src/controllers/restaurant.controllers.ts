@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Restaurant from "../models/restaurant.model";
+import Menu from "../models/menu.model";
 
 
 export const createRestaurant = async (req: Request, res: Response) => {
@@ -48,7 +49,7 @@ export const getRestuarant = async (req: Request, res: Response) => {
 
         if(!existingRestaurant) {
          return res.status(400).json({
-            message: "Restaurant does not exist"
+            message: "Restaurant not found"
          });
         };
 
@@ -150,5 +151,33 @@ export const deleteRestaurant = async (req: Request, res: Response) => {
       return res.status(500).json({
         message: "Server error"
       });  
+    }
+};
+
+
+export const getRestaurantMenu = async (req: Request, res: Response) => {
+    try {
+        //Get the restaurant menu
+        const {restaurantId} = req.params;
+
+         
+        //Fetch menu from the database base on the restauarantId
+        const menuItems = await Menu.find({restaurantId});
+         if (!menuItems) {
+            return res.status(504).json({
+                message: "Not found"
+            })
+        };
+         
+
+         return res.status(200).json({
+            message: "Menu fetched successfully",
+            menuItems
+         });
+
+    } catch (error) {
+       return res.status(500).json({
+        message: "Server error"
+       }); 
     }
 };

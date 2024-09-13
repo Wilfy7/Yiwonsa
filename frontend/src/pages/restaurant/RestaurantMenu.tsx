@@ -18,17 +18,20 @@ const RestaurantMenu = () => {
 
 
     useEffect(() => {
-        axios
-          .get(`${baseUrl}/restaurant/${restaurantId}/menu`)
-          .then((res) => {
-            setMenuItems(res.data.menuItems);
-            setLoading(false);
-          })
-          .catch((error) =>{
-            setError(error.message);
-            setLoading(false);
-          });
-    }, [])
+        
+          const fetchMenu = async () => {
+            try {
+              const res = await fetch(`${baseUrl}/restauarant/${restaurantId}/menu`)
+              const data = await res.json();
+              setMenuItems(data.menuItems)
+            } catch (error) {
+            console.error("Error fetching menu:", error) 
+            }
+          };
+
+        fetchMenu();
+          
+    }, [restaurantId]);
 
     if (loading) {
         return <div>Loading...</div>

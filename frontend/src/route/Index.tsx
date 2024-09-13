@@ -43,7 +43,7 @@ const Index = () => {
         ) : (
           <Route path="/create-restaurant" element={<CreateRestaurant />} />
         )}
-        <Route path="/restaurant/:restaurantId" element={<RestaurantMenu/>} />
+        <Route path="/restaurant/:restaurantId/menu" element={<RestaurantMenu/>} />
 
 
 
